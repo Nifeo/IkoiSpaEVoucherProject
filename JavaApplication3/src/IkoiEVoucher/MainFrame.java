@@ -17,7 +17,7 @@ import javax.swing.DefaultComboBoxModel;
  *
  * @author Rick
  */
-public class MainFrame extends javax.swing.JFrame {
+public final class MainFrame extends javax.swing.JFrame {
 
     private ArrayList<String> serviceTitle;
     private ArrayList<String> serviceDescription;
@@ -26,10 +26,12 @@ public class MainFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form MainFrame
+     * @throws java.io.FileNotFoundException
      */
     public MainFrame() throws FileNotFoundException {
         this.lf = new LoadFile("F:/Try00/serviceManu.csv");
         this.serviceTitle = new ArrayList();
+        this.serviceDescription = new ArrayList();
         arrayInitialization();
         this.str = new DefaultComboBoxModel(serviceTitle.toArray());
         initComponents();
@@ -50,16 +52,16 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     public void description() throws FileNotFoundException {
-        String content1 = "";
-        String content2 = "";
+        String contentOne = "";
+        String contentTwo = "";
         lf = new LoadFile();
         Scanner scanner = new Scanner(lf.getSrc());
         scanner.useDelimiter(";");
         while(scanner.hasNext()){
-            content1+=scanner.next();
-            serviceDescription.add(content1);
-            content1="";
-            content2+=scanner.next();
+            contentOne+=scanner.next();
+            contentOne="";
+            contentTwo=scanner.next();
+            serviceDescription.add(contentTwo);
         }
     }
 
@@ -85,6 +87,11 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         jComboBox2.setModel(str);
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -116,6 +123,10 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
     /**
      * @param args the command line arguments
