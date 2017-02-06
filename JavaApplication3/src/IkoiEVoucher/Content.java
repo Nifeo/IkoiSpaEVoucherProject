@@ -1,7 +1,6 @@
 package IkoiEVoucher;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /*
@@ -15,15 +14,16 @@ import java.util.HashMap;
  */
 public class Content {
 
-    private final ArrayList<HashMap<String, String>> ls = new ArrayList<>();
-
-    public void addTreartment(String key, String content) {
-        HashMap<String, String> map = new HashMap<>();
-        map.put(key, content);
-        ls.add(map);
-    }
+    private HashMap<String, String> map = new HashMap<>();
     
+
+    public Content(String[] treartmentName, String[] treartmentDescription) {
+        for(int x = 0; x < treartmentName.length; x++){
+            map.put(treartmentName[x], treartmentDescription[x]);
+        }
+    }
+
     public String getContent(int indexNum, String key){
-        return ls.get(indexNum).get(key);
+        return map.get(key);
     }
 }
