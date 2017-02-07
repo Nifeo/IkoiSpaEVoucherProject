@@ -15,15 +15,14 @@ import java.util.HashMap;
 public class Content {
 
     private HashMap<String, String> map = new HashMap<>();
-    
 
+    
     public Content(String[] treartmentName, String[] treartmentDescription) {
         for(int x = 0; x < treartmentName.length; x++){
-            map.put(treartmentName[x], treartmentDescription[x]);
+            map.put(treartmentName[x],treartmentDescription[x]);
         }
     }
-
-    public String getContent(int indexNum, String key){
-        return map.get(key);
+    public String getContent(String str){
+        return map.get(str);
     }
 }
