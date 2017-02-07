@@ -1,6 +1,5 @@
 package IkoiEVoucher;
 
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -24,7 +23,7 @@ public class LoadFile {
         setFile(fileName);
         this.src = new FileInputStream(getFile());
     }
-    
+
     public LoadFile() throws FileNotFoundException {
         String defaultPath = "F:/Try00/serviceManu.csv";
         this.src = new FileInputStream(new File(defaultPath));
@@ -46,7 +45,4 @@ public class LoadFile {
         this.file = new File(filePath);
     }
 
-
-    
-    
 }
