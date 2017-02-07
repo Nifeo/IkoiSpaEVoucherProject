@@ -42,6 +42,9 @@ public class PdfItext {
         PdfAcroForm form = PdfAcroForm.getAcroForm(pdfDoc, true);
         Map<String, PdfFormField> fields = form.getFormFields();
         fields.get(formName).setValue(value);
+    }
+    
+    public void close(){
         pdfDoc.close();
     }
 }
