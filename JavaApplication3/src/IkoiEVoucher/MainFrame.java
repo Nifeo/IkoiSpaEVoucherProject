@@ -1,7 +1,9 @@
 package IkoiEVoucher;
 
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -19,11 +21,12 @@ import javax.swing.DefaultComboBoxModel;
  */
 public final class MainFrame extends javax.swing.JFrame {
 
-    private Content c;
+    private Content c1,c2;
     private ArrayList<String> serviceTitle,serviceDescription,addon,addonDescription;
     private DefaultComboBoxModel dcbm1,dcbm2;
     private LoadFile lf,lf2;
-
+    private PdfItext pi;
+    
     /**
      * Creates new form MainFrame
      *
@@ -38,7 +41,8 @@ public final class MainFrame extends javax.swing.JFrame {
         arrayInitialization();
         description();
         addOn();
-        c = new Content(toArray(serviceTitle), toArray(serviceDescription));
+        c1 = new Content(toArray(serviceTitle), toArray(serviceDescription));
+        c2 = new Content(toArray(addon), toArray(addonDescription));
         this.dcbm1 = new DefaultComboBoxModel(serviceTitle.toArray());
         this.dcbm2 = new DefaultComboBoxModel(addon.toArray());
         initComponents();
@@ -56,6 +60,7 @@ public final class MainFrame extends javax.swing.JFrame {
             content1 = "";
             content2 += scanner.next();
         }
+        scanner.close();
     }
 
     public void description() throws FileNotFoundException {
@@ -70,6 +75,7 @@ public final class MainFrame extends javax.swing.JFrame {
             contentTwo = scanner.next();
             serviceDescription.add(contentTwo);
         }
+        scanner.close();
     }
     
     public void addOn() throws FileNotFoundException{
@@ -83,7 +89,9 @@ public final class MainFrame extends javax.swing.JFrame {
             addon.add(contentThree);
             contentFour += scanner.next();
             addonDescription.add(contentFour);
+            System.out.println(contentFour);
         }
+        scanner.close();
     }
     
     public String[] toArray(ArrayList<String> al){
@@ -103,31 +111,31 @@ public final class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        PrintOutButton = new javax.swing.JButton();
+        treatmentComboBox = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        RecipientTextField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        ReseemableFrom = new javax.swing.JTextField();
+        VailUpToAndIncluding = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        addonComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Print");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        PrintOutButton.setText("Print");
+        PrintOutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                PrintOutButtonActionPerformed(evt);
             }
         });
 
-        jComboBox2.setModel(dcbm1);
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        treatmentComboBox.setModel(dcbm1);
+        treatmentComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                treatmentComboBoxActionPerformed(evt);
             }
         });
 
@@ -135,23 +143,23 @@ public final class MainFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Recipient:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        RecipientTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                RecipientTextFieldActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("Reseemable Form:");
+        jLabel3.setText("Reseemable From:");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        ReseemableFrom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                ReseemableFromActionPerformed(evt);
             }
         });
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        VailUpToAndIncluding.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                VailUpToAndIncludingActionPerformed(evt);
             }
         });
 
@@ -159,7 +167,7 @@ public final class MainFrame extends javax.swing.JFrame {
 
         jLabel5.setText("Add-on:");
 
-        jComboBox1.setModel(dcbm2);
+        addonComboBox.setModel(dcbm2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -169,7 +177,7 @@ public final class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(PrintOutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,11 +189,11 @@ public final class MainFrame extends javax.swing.JFrame {
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField3)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.TRAILING, 0, 397, Short.MAX_VALUE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addComponent(VailUpToAndIncluding)
+                            .addComponent(treatmentComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, 397, Short.MAX_VALUE)
+                            .addComponent(RecipientTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(ReseemableFrom, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(addonComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,51 +201,63 @@ public final class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(treatmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(RecipientTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ReseemableFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(VailUpToAndIncluding, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(addonComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(PrintOutButton)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+    private void PrintOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintOutButtonActionPerformed
+        try {
+            // TODO add your handling code here:
+            pi = new PdfItext(new File("F:/Try00/copy01.pdf"), new File("F:/Try00/copy.pdf"));
+            pi.fillFormField("Title", treatmentComboBox.getSelectedItem().toString());
+            pi = new PdfItext(new File("F:/Try00/copy01.pdf"), new File("F:/Try00/copy02.pdf"));
+//            pi.fillFormField("Title", treatmentComboBox.getSelectedItem().toString());
+            pi.fillFormField("Recipient", RecipientTextField.getText());
+            pi.fillFormField("Vaild up to and including", VailUpToAndIncluding.getText());
+            String treatmentDetail = addonComboBox.getSelectedItem().toString() + c2.getContent(addonComboBox.getSelectedItem().toString());
+            pi.fillFormField("TreatmentDetail", c1.getContent(treatmentDetail));
+            pi.close();
+        } catch (IOException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_PrintOutButtonActionPerformed
 
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+    private void treatmentComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_treatmentComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+    }//GEN-LAST:event_treatmentComboBoxActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void RecipientTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecipientTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_RecipientTextFieldActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void ReseemableFromActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReseemableFromActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_ReseemableFromActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void VailUpToAndIncludingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VailUpToAndIncludingActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_VailUpToAndIncludingActionPerformed
 
     /**
      * @param args the command line arguments
@@ -279,16 +299,16 @@ public final class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JButton PrintOutButton;
+    private javax.swing.JTextField RecipientTextField;
+    private javax.swing.JTextField ReseemableFrom;
+    private javax.swing.JTextField VailUpToAndIncluding;
+    private javax.swing.JComboBox<String> addonComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JComboBox<String> treatmentComboBox;
     // End of variables declaration//GEN-END:variables
 }
