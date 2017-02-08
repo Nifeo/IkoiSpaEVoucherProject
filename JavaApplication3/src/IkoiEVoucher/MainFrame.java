@@ -33,7 +33,7 @@ public final class MainFrame extends javax.swing.JFrame {
      * @throws java.io.FileNotFoundException
      */
     public MainFrame() throws FileNotFoundException {
-        this.lf = new LoadFile("F:/Try00/serviceManu.csv");
+        this.lf = new LoadFile("F:/Try00/serviceManu.txt");
         this.serviceTitle = new ArrayList();
         this.serviceDescription = new ArrayList();
         this.addon = new ArrayList();
@@ -70,7 +70,7 @@ public final class MainFrame extends javax.swing.JFrame {
         Scanner scanner = new Scanner(lf.getSrc());
         scanner.useDelimiter(";");
         while (scanner.hasNext()) {
-            contentOne += scanner.next();
+            contentOne = scanner.next();
             contentOne = "";
             contentTwo = scanner.next();
             serviceDescription.add(contentTwo);
@@ -81,15 +81,14 @@ public final class MainFrame extends javax.swing.JFrame {
     public void addOn() throws FileNotFoundException{
         String contentThree = "";
         String contentFour = "";
-        lf2 = new LoadFile("F:/Try00/addon.csv");
+        lf2 = new LoadFile("F:/Try00/addon.txt");
         Scanner scanner = new Scanner(lf2.getSrc());
         scanner.useDelimiter(";");
         while (scanner.hasNext()) {
-            contentThree += scanner.next();
+            contentThree = scanner.next();
             addon.add(contentThree);
-            contentFour += scanner.next();
+            contentFour = scanner.next();
             addonDescription.add(contentFour);
-            System.out.println(contentFour);
         }
         scanner.close();
     }
@@ -228,15 +227,14 @@ public final class MainFrame extends javax.swing.JFrame {
 
     private void PrintOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintOutButtonActionPerformed
         try {
-            // TODO add your handling code here:
             pi = new PdfItext(new File("F:/Try00/copy01.pdf"), new File("F:/Try00/copy.pdf"));
             pi.fillFormField("Title", treatmentComboBox.getSelectedItem().toString());
-            pi = new PdfItext(new File("F:/Try00/copy01.pdf"), new File("F:/Try00/copy02.pdf"));
-//            pi.fillFormField("Title", treatmentComboBox.getSelectedItem().toString());
             pi.fillFormField("Recipient", RecipientTextField.getText());
+            pi.fillFormField("Redeemable From", ReseemableFrom.getText());
+            String treatmentDetail = c1.getContent(treatmentComboBox.getSelectedItem().toString()) + "\n" + c2.getContent(addonComboBox.getSelectedItem().toString());
+            pi.fillFormField("Treatment Name", treatmentComboBox.getSelectedItem().toString());
+            pi.fillFormField("TreatmentDetail", treatmentDetail);
             pi.fillFormField("Vaild up to and including", VailUpToAndIncluding.getText());
-            String treatmentDetail = addonComboBox.getSelectedItem().toString() + c2.getContent(addonComboBox.getSelectedItem().toString());
-            pi.fillFormField("TreatmentDetail", c1.getContent(treatmentDetail));
             pi.close();
         } catch (IOException ex) {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
