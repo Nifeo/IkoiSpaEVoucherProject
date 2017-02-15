@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
+import sun.tools.jar.Main;
 
 /**
  *
@@ -32,9 +33,15 @@ public class PdfItext {
     private OutputStream dest;
     PdfDocument pdfDoc;
 
-    public PdfItext(File src, File dest) throws FileNotFoundException, IOException{
-        this.src = new FileInputStream(src);
-        this.dest = new FileOutputStream(dest);
+//    public PdfItext(File src, File dest) throws FileNotFoundException, IOException{
+//        this.src = new FileInputStream(src);
+//        this.dest = new FileOutputStream(dest);
+//        this.pdfDoc = new PdfDocument(new PdfReader(this.src), new PdfWriter(this.dest));
+//    }
+    
+    public PdfItext() throws FileNotFoundException, IOException{
+        this.src = Main.class.getResourceAsStream("/src/E_Voucher.pdf");
+        this.dest = new FileOutputStream(new File("C:/E_Voucher1.pdf"));
         this.pdfDoc = new PdfDocument(new PdfReader(this.src), new PdfWriter(this.dest));
     }
 

@@ -1,6 +1,6 @@
 package IkoiEVoucher;
 
-
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -21,24 +21,25 @@ import javax.swing.DefaultComboBoxModel;
  */
 public final class MainFrame extends javax.swing.JFrame {
 
-    private Content c1,c2;
-    private ArrayList<String> serviceTitle,serviceDescription,addon,addonDescription;
-    private DefaultComboBoxModel dcbm1,dcbm2;
-    private LoadFile lf,lf2;
+    private Content c1, c2;
+    private ArrayList<String> serviceTitle, serviceDescription, addon, addonDescription;
+    private DefaultComboBoxModel dcbm1, dcbm2;
+    private LoadFile lf, lf2;
     private PdfItext pi;
-    
+
     /**
      * Creates new form MainFrame
      *
      * @throws java.io.FileNotFoundException
      */
-    public MainFrame() throws FileNotFoundException {
-        this.lf = new LoadFile("F:/Try00/serviceManu.txt");
+    public MainFrame() throws FileNotFoundException, IOException {
+//        this.lf = new LoadFile("F:/Try00/serviceManu.txt");
+        this.lf = new LoadFile("/src/serviceManu.csv");
         this.serviceTitle = new ArrayList();
         this.serviceDescription = new ArrayList();
         this.addon = new ArrayList();
         this.addonDescription = new ArrayList();
-        arrayInitialization();
+//        arrayInitialization();
         description();
         addOn();
         c1 = new Content(toArray(serviceTitle), toArray(serviceDescription));
@@ -48,55 +49,77 @@ public final class MainFrame extends javax.swing.JFrame {
         initComponents();
     }
 
-    public void arrayInitialization() throws FileNotFoundException {
-        String content1 = "";
-        String content2 = "";
-        lf = new LoadFile();
-        Scanner scanner = new Scanner(lf.getSrc());
-        scanner.useDelimiter(";");
-        while (scanner.hasNext()) {
-            content1 += scanner.next();
-            serviceTitle.add(content1);
-            content1 = "";
-            content2 += scanner.next();
+//    public void arrayInitialization() throws FileNotFoundException {
+//        String content1 = "";
+//        String content2 = "";
+//        lf = new LoadFile();
+//        Scanner scanner = new Scanner(lf.getSrc());
+//        scanner.useDelimiter(";");
+//        while (scanner.hasNext()) {
+//            content1 += scanner.next();
+//            serviceTitle.add(content1);
+//            content1 = "";
+//            content2 += scanner.next();
+//        }
+//        scanner.close();
+//    }
+
+    public void description() throws FileNotFoundException, IOException {
+//        String contentOne = "";
+//        String contentTwo = "";
+//        lf = new LoadFile();
+//        Scanner scanner = new Scanner(lf.getSrc());
+//        scanner.useDelimiter(";");
+//        while (scanner.hasNext()) {
+//            contentOne = scanner.next();
+//            contentOne = "";
+//            contentTwo = scanner.next();
+//            serviceDescription.add(contentTwo);
+//        }
+//        scanner.close();
+        lf2 = new LoadFile("/src/serviceManu.csv");
+        ArrayList al = lf2.getArrayList();
+        for (int x = 0;
+                x < al.size();
+                x++) {
+            if (x % 2 != 0) {
+                serviceDescription.add((String) al.get(x));
+            } else {
+                serviceTitle.add((String) al.get(x));
+            }
         }
-        scanner.close();
     }
 
-    public void description() throws FileNotFoundException {
-        String contentOne = "";
-        String contentTwo = "";
-        lf = new LoadFile();
-        Scanner scanner = new Scanner(lf.getSrc());
-        scanner.useDelimiter(";");
-        while (scanner.hasNext()) {
-            contentOne = scanner.next();
-            contentOne = "";
-            contentTwo = scanner.next();
-            serviceDescription.add(contentTwo);
+    public void addOn() throws FileNotFoundException, IOException {
+//        String contentThree = "";
+//        String contentFour = "";
+//        lf2 = new LoadFile("F:/Try00/addon.txt");
+//        Scanner scanner = new Scanner(lf2.getSrc());
+//        scanner.useDelimiter(";");
+//        while (scanner.hasNext()) {
+//            contentThree = scanner.next();
+//            addon.add(contentThree);
+//            contentFour = scanner.next();
+//            addonDescription.add(contentFour);
+//        }
+//        scanner.close();
+        lf2 = new LoadFile("/src/addon.csv");
+        ArrayList al = lf2.getArrayList();
+        for (int x = 0;
+                x < al.size();
+                x++) {
+            if (x % 2 != 0) {
+                addonDescription.add((String) al.get(x));
+            } else {
+                addon.add((String) al.get(x));
+            }
         }
-        scanner.close();
     }
-    
-    public void addOn() throws FileNotFoundException{
-        String contentThree = "";
-        String contentFour = "";
-        lf2 = new LoadFile("F:/Try00/addon.txt");
-        Scanner scanner = new Scanner(lf2.getSrc());
-        scanner.useDelimiter(";");
-        while (scanner.hasNext()) {
-            contentThree = scanner.next();
-            addon.add(contentThree);
-            contentFour = scanner.next();
-            addonDescription.add(contentFour);
-        }
-        scanner.close();
-    }
-    
-    public String[] toArray(ArrayList<String> al){
+
+    public String[] toArray(ArrayList<String> al) {
         String[] stra = new String[al.size()];
-        for(int x = 0; x<al.size(); x++){
-            stra[x]=al.get(x);
+        for (int x = 0; x < al.size(); x++) {
+            stra[x] = al.get(x);
         }
         return stra;
     }
@@ -227,7 +250,7 @@ public final class MainFrame extends javax.swing.JFrame {
 
     private void PrintOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintOutButtonActionPerformed
         try {
-            pi = new PdfItext(new File("F:/Try00/copy01.pdf"), new File("F:/Try00/copy.pdf"));
+            pi = new PdfItext();
             pi.fillFormField("Title", treatmentComboBox.getSelectedItem().toString());
             pi.fillFormField("Recipient", RecipientTextField.getText());
             pi.fillFormField("Redeemable From", ReseemableFrom.getText());
@@ -236,8 +259,11 @@ public final class MainFrame extends javax.swing.JFrame {
             pi.fillFormField("TreatmentDetail", treatmentDetail);
             pi.fillFormField("Vaild up to and including", VailUpToAndIncluding.getText());
             pi.close();
+            Desktop ds = Desktop.getDesktop();
+            ds.open(new File("c:/E_Voucher1.pdf"));
         } catch (IOException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainFrame.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_PrintOutButtonActionPerformed
 
@@ -266,22 +292,30 @@ public final class MainFrame extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(MainFrame.class
+//                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(MainFrame.class
+//                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(MainFrame.class
+//                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(MainFrame.class
+//                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
         //</editor-fold>
 
         /* Create and display the form */
@@ -289,7 +323,11 @@ public final class MainFrame extends javax.swing.JFrame {
             public void run() {
                 try {
                     new MainFrame().setVisible(true);
+
                 } catch (FileNotFoundException ex) {
+                    Logger.getLogger(MainFrame.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
                     Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
