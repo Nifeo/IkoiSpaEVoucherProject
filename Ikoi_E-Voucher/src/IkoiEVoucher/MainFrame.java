@@ -1,127 +1,36 @@
-package IkoiEVoucher;
-
-import java.awt.Desktop;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package IkoiEVoucher;
+
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+
 /**
  *
  * @author Rick
  */
-public final class MainFrame extends javax.swing.JFrame {
+public class MainFrame extends javax.swing.JFrame {
 
-    private Content c1, c2;
-    private ArrayList<String> serviceTitle, serviceDescription, addon, addonDescription;
+    private final MainPackage mp;
     private DefaultComboBoxModel dcbm1, dcbm2;
-    private LoadFile lf, lf2;
-    private PdfItext pi;
 
     /**
      * Creates new form MainFrame
-     *
-     * @throws java.io.FileNotFoundException
      */
-    public MainFrame() throws FileNotFoundException, IOException {
-//        this.lf = new LoadFile("F:/Try00/serviceManu.txt");
-        this.lf = new LoadFile("/src/serviceManu.csv");
-        this.serviceTitle = new ArrayList();
-        this.serviceDescription = new ArrayList();
-        this.addon = new ArrayList();
-        this.addonDescription = new ArrayList();
-//        arrayInitialization();
-        description();
-        addOn();
-        c1 = new Content(toArray(serviceTitle), toArray(serviceDescription));
-        c2 = new Content(toArray(addon), toArray(addonDescription));
-        this.dcbm1 = new DefaultComboBoxModel(serviceTitle.toArray());
-        this.dcbm2 = new DefaultComboBoxModel(addon.toArray());
+    public MainFrame() throws IOException {
+        mp = new MainPackage();
+        this.dcbm1 = new DefaultComboBoxModel(mp.toArray(mp.getServiceTitle()));
+        this.dcbm2 = new DefaultComboBoxModel(mp.toArray(mp.getAddon()));
         initComponents();
-    }
-
-//    public void arrayInitialization() throws FileNotFoundException {
-//        String content1 = "";
-//        String content2 = "";
-//        lf = new LoadFile();
-//        Scanner scanner = new Scanner(lf.getSrc());
-//        scanner.useDelimiter(";");
-//        while (scanner.hasNext()) {
-//            content1 += scanner.next();
-//            serviceTitle.add(content1);
-//            content1 = "";
-//            content2 += scanner.next();
-//        }
-//        scanner.close();
-//    }
-
-    public void description() throws FileNotFoundException, IOException {
-//        String contentOne = "";
-//        String contentTwo = "";
-//        lf = new LoadFile();
-//        Scanner scanner = new Scanner(lf.getSrc());
-//        scanner.useDelimiter(";");
-//        while (scanner.hasNext()) {
-//            contentOne = scanner.next();
-//            contentOne = "";
-//            contentTwo = scanner.next();
-//            serviceDescription.add(contentTwo);
-//        }
-//        scanner.close();
-        lf2 = new LoadFile("/src/serviceManu.csv");
-        ArrayList al = lf2.getArrayList();
-        for (int x = 0;
-                x < al.size();
-                x++) {
-            if (x % 2 != 0) {
-                serviceDescription.add((String) al.get(x));
-            } else {
-                serviceTitle.add((String) al.get(x));
-            }
-        }
-    }
-
-    public void addOn() throws FileNotFoundException, IOException {
-//        String contentThree = "";
-//        String contentFour = "";
-//        lf2 = new LoadFile("F:/Try00/addon.txt");
-//        Scanner scanner = new Scanner(lf2.getSrc());
-//        scanner.useDelimiter(";");
-//        while (scanner.hasNext()) {
-//            contentThree = scanner.next();
-//            addon.add(contentThree);
-//            contentFour = scanner.next();
-//            addonDescription.add(contentFour);
-//        }
-//        scanner.close();
-        lf2 = new LoadFile("/src/addon.csv");
-        ArrayList al = lf2.getArrayList();
-        for (int x = 0;
-                x < al.size();
-                x++) {
-            if (x % 2 != 0) {
-                addonDescription.add((String) al.get(x));
-            } else {
-                addon.add((String) al.get(x));
-            }
-        }
-    }
-
-    public String[] toArray(ArrayList<String> al) {
-        String[] stra = new String[al.size()];
-        for (int x = 0; x < al.size(); x++) {
-            stra[x] = al.get(x);
-        }
-        return stra;
     }
 
     /**
@@ -133,61 +42,46 @@ public final class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        PrintOutButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        printOutButton = new javax.swing.JButton();
+        firstNameLabel = new javax.swing.JLabel();
+        LastNameLabel = new javax.swing.JLabel();
+        serviceLabel = new javax.swing.JLabel();
+        addonLabel = new javax.swing.JLabel();
+        firstNameTextField = new javax.swing.JTextField();
+        LastNameTextField = new javax.swing.JTextField();
         treatmentComboBox = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        RecipientTextField = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        ReseemableFrom = new javax.swing.JTextField();
-        VailUpToAndIncluding = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         addonComboBox = new javax.swing.JComboBox<>();
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        PrintOutButton.setText("Print");
-        PrintOutButton.addActionListener(new java.awt.event.ActionListener() {
+        printOutButton.setText("Save & Print");
+        printOutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PrintOutButtonActionPerformed(evt);
+                printOutButtonActionPerformed(evt);
+            }
+        });
+
+        firstNameLabel.setText("First name:");
+
+        LastNameLabel.setText("Last name:");
+
+        serviceLabel.setText("service:");
+
+        addonLabel.setText("addon:");
+
+        LastNameTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LastNameTextFieldActionPerformed(evt);
             }
         });
 
         treatmentComboBox.setModel(dcbm1);
-        treatmentComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                treatmentComboBoxActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("treatment:");
-
-        jLabel2.setText("Recipient:");
-
-        RecipientTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RecipientTextFieldActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("Reseemable From:");
-
-        ReseemableFrom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ReseemableFromActionPerformed(evt);
-            }
-        });
-
-        VailUpToAndIncluding.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VailUpToAndIncludingActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setText("Vaild up to and including:");
-
-        jLabel5.setText("Add-on:");
 
         addonComboBox.setModel(dcbm2);
 
@@ -197,91 +91,85 @@ public final class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(PrintOutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(printOutButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(VailUpToAndIncluding)
-                            .addComponent(treatmentComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, 397, Short.MAX_VALUE)
-                            .addComponent(RecipientTextField, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(ReseemableFrom, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(addonComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addComponent(firstNameLabel)
+                            .addComponent(LastNameLabel)
+                            .addComponent(serviceLabel)
+                            .addComponent(addonLabel))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(firstNameTextField)
+                            .addComponent(LastNameTextField)
+                            .addComponent(treatmentComboBox, 0, 330, Short.MAX_VALUE)
+                            .addComponent(addonComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(treatmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(RecipientTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ReseemableFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(firstNameLabel)
+                    .addComponent(firstNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(VailUpToAndIncluding, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(LastNameLabel)
+                    .addComponent(LastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                    .addComponent(serviceLabel)
+                    .addComponent(treatmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addonLabel)
                     .addComponent(addonComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(PrintOutButton)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(printOutButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void PrintOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintOutButtonActionPerformed
+    private void LastNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LastNameTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LastNameTextFieldActionPerformed
+
+    private void printOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printOutButtonActionPerformed
+        // TODO add your handling code here:
         try {
-            pi = new PdfItext();
+            Calendar c = Calendar.getInstance();
+            String fileName = new SimpleDateFormat("dd_MM_yyyy").format(c.getTime()) + "_" + firstNameTextField.getText() + "_" + LastNameTextField.getText();
+            PdfItext pi;
+            pi = new PdfItext(fileName + ".pdf");
+            String addonName;
             pi.fillFormField("Title", treatmentComboBox.getSelectedItem().toString());
-            pi.fillFormField("Recipient", RecipientTextField.getText());
-            pi.fillFormField("Redeemable From", ReseemableFrom.getText());
-            String treatmentDetail = c1.getContent(treatmentComboBox.getSelectedItem().toString()) + "\n" + c2.getContent(addonComboBox.getSelectedItem().toString());
-            pi.fillFormField("Treatment Name", treatmentComboBox.getSelectedItem().toString());
-            pi.fillFormField("TreatmentDetail", treatmentDetail);
-            pi.fillFormField("Vaild up to and including", VailUpToAndIncluding.getText());
+            pi.fillFormField("Recipient", firstNameTextField.getText() + " " + LastNameTextField.getText());
+            String treatmentDetail = mp.getC1().getContent(treatmentComboBox.getSelectedItem().toString());
+            String addonDetail = mp.getC2().getContent(addonComboBox.getSelectedItem().toString());
+            if (addonComboBox.getSelectedItem().toString().contains("None")) {
+                pi.fillFormField("TreatmentDetail", treatmentComboBox.getSelectedItem().toString() + "\n" + treatmentDetail);
+                pi.fillFormField("Treatment Name", treatmentComboBox.getSelectedItem().toString());
+            } else {
+                pi.fillFormField("Treatment Name", treatmentComboBox.getSelectedItem().toString() + " & " + addonComboBox.getSelectedItem().toString());
+                addonName = "Add-On: " + addonComboBox.getSelectedItem().toString();
+                pi.fillFormField("AddonName", addonName);
+                pi.fillFormField("TreatmentDetail", treatmentDetail + "\n" + addonComboBox.getSelectedItem().toString() + "\n" + addonDetail);
+            }
+            c.add(Calendar.MONTH, +6);
+            pi.fillFormField("Vaild up to and including", new SimpleDateFormat("dd/MM/yyyy").format(c.getTime()));
             pi.close();
             Desktop ds = Desktop.getDesktop();
-            ds.open(new File("c:/E_Voucher1.pdf"));
+            ds.open(new File(System.getProperty("user.dir") + "\\" + fileName + ".pdf"));
         } catch (IOException ex) {
-            Logger.getLogger(MainFrame.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_PrintOutButtonActionPerformed
-
-    private void treatmentComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_treatmentComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_treatmentComboBoxActionPerformed
-
-    private void RecipientTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecipientTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RecipientTextFieldActionPerformed
-
-    private void ReseemableFromActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReseemableFromActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ReseemableFromActionPerformed
-
-    private void VailUpToAndIncludingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VailUpToAndIncludingActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_VailUpToAndIncludingActionPerformed
+    }//GEN-LAST:event_printOutButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -292,30 +180,22 @@ public final class MainFrame extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(MainFrame.class
-//                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(MainFrame.class
-//                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(MainFrame.class
-//                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(MainFrame.class
-//                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         //</editor-fold>
 
         /* Create and display the form */
@@ -323,10 +203,6 @@ public final class MainFrame extends javax.swing.JFrame {
             public void run() {
                 try {
                     new MainFrame().setVisible(true);
-
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(MainFrame.class
-                            .getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
                     Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -335,16 +211,16 @@ public final class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton PrintOutButton;
-    private javax.swing.JTextField RecipientTextField;
-    private javax.swing.JTextField ReseemableFrom;
-    private javax.swing.JTextField VailUpToAndIncluding;
+    private javax.swing.JLabel LastNameLabel;
+    private javax.swing.JTextField LastNameTextField;
     private javax.swing.JComboBox<String> addonComboBox;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel addonLabel;
+    private javax.swing.JLabel firstNameLabel;
+    private javax.swing.JTextField firstNameTextField;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JButton printOutButton;
+    private javax.swing.JLabel serviceLabel;
     private javax.swing.JComboBox<String> treatmentComboBox;
     // End of variables declaration//GEN-END:variables
 }

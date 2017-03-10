@@ -14,8 +14,6 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,19 +27,14 @@ import sun.tools.jar.Main;
  */
 public class PdfItext {
 
-    private InputStream src;
-    private OutputStream dest;
+    private final InputStream src;
+    private final OutputStream dest;
     PdfDocument pdfDoc;
-
-//    public PdfItext(File src, File dest) throws FileNotFoundException, IOException{
-//        this.src = new FileInputStream(src);
-//        this.dest = new FileOutputStream(dest);
-//        this.pdfDoc = new PdfDocument(new PdfReader(this.src), new PdfWriter(this.dest));
-//    }
+    String fileName;
     
-    public PdfItext() throws FileNotFoundException, IOException{
+    public PdfItext(String str) throws IOException{
         this.src = Main.class.getResourceAsStream("/src/E_Voucher.pdf");
-        this.dest = new FileOutputStream(new File("C:/E_Voucher1.pdf"));
+        this.dest = new FileOutputStream(new File(System.getProperty("user.dir")+"\\"+str));
         this.pdfDoc = new PdfDocument(new PdfReader(this.src), new PdfWriter(this.dest));
     }
 
