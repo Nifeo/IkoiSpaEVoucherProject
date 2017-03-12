@@ -1,9 +1,9 @@
+package IkoiEVoucher;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package IkoiEVoucher;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -26,10 +26,10 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    public MainFrame() throws IOException {
+    public MainFrame() throws IOException, Exception {
         mp = new MainPackage();
-        this.dcbm1 = new DefaultComboBoxModel(mp.toArray(mp.getServiceTitle()));
-        this.dcbm2 = new DefaultComboBoxModel(mp.toArray(mp.getAddon()));
+        this.dcbm1 = new DefaultComboBoxModel(mp.getServiceTitle().toArray());
+        this.dcbm2 = new DefaultComboBoxModel(mp.getAddonTitle().toArray());
         initComponents();
     }
 
@@ -145,8 +145,7 @@ public class MainFrame extends javax.swing.JFrame {
         try {
             Calendar c = Calendar.getInstance();
             String fileName = new SimpleDateFormat("dd_MM_yyyy").format(c.getTime()) + "_" + firstNameTextField.getText() + "_" + LastNameTextField.getText();
-            PdfItext pi;
-            pi = new PdfItext(fileName + ".pdf");
+            PdfItext pi = new PdfItext(fileName + ".pdf");
             String addonName;
             pi.fillFormField("Title", treatmentComboBox.getSelectedItem().toString());
             pi.fillFormField("Recipient", firstNameTextField.getText() + " " + LastNameTextField.getText());
@@ -204,6 +203,8 @@ public class MainFrame extends javax.swing.JFrame {
                 try {
                     new MainFrame().setVisible(true);
                 } catch (IOException ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
                     Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
