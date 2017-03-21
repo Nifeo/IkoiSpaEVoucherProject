@@ -53,6 +53,8 @@ public class MainFrame extends javax.swing.JFrame {
         LastNameTextField = new javax.swing.JTextField();
         treatmentComboBox = new javax.swing.JComboBox<>();
         addonComboBox = new javax.swing.JComboBox<>();
+        voucherNumberLabel = new javax.swing.JLabel();
+        voucherNumberTextFeild = new javax.swing.JTextField();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -85,6 +87,14 @@ public class MainFrame extends javax.swing.JFrame {
 
         addonComboBox.setModel(dcbm2);
 
+        voucherNumberLabel.setText("voucher number:");
+
+        voucherNumberTextFeild.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voucherNumberTextFeildActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -98,15 +108,23 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(firstNameLabel)
-                            .addComponent(LastNameLabel)
-                            .addComponent(serviceLabel)
-                            .addComponent(addonLabel))
-                        .addGap(18, 18, 18)
+                            .addComponent(LastNameLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(LastNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+                            .addComponent(firstNameTextField)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(addonLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(addonComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(firstNameTextField)
-                            .addComponent(LastNameTextField)
-                            .addComponent(treatmentComboBox, 0, 330, Short.MAX_VALUE)
-                            .addComponent(addonComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(serviceLabel)
+                            .addComponent(voucherNumberLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(voucherNumberTextFeild)
+                            .addComponent(treatmentComboBox, 0, 355, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -122,13 +140,17 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(LastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(voucherNumberLabel)
+                    .addComponent(voucherNumberTextFeild, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(serviceLabel)
                     .addComponent(treatmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addonLabel)
                     .addComponent(addonComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(printOutButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -144,11 +166,12 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             Calendar c = Calendar.getInstance();
-            String fileName = new SimpleDateFormat("dd_MM_yyyy").format(c.getTime()) + "_" + firstNameTextField.getText() + "_" + LastNameTextField.getText();
+            String fileName = new SimpleDateFormat("dd_MM_yyyy").format(c.getTime()) + "_" + firstNameTextField.getText() + "_" + LastNameTextField.getText() +  "_"  + voucherNumberTextFeild.getText();
             PdfItext pi = new PdfItext(fileName + ".pdf");
             String addonName;
             pi.fillFormField("Title", treatmentComboBox.getSelectedItem().toString());
             pi.fillFormField("Recipient", firstNameTextField.getText() + " " + LastNameTextField.getText());
+            pi.fillFormField("VoucherNumber","Voucher Number: " + voucherNumberTextFeild.getText());
             String treatmentDetail = mp.getC1().getContent(treatmentComboBox.getSelectedItem().toString());
             String addonDetail = mp.getC2().getContent(addonComboBox.getSelectedItem().toString());
             if (addonComboBox.getSelectedItem().toString().contains("None")) {
@@ -169,6 +192,10 @@ public class MainFrame extends javax.swing.JFrame {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_printOutButtonActionPerformed
+
+    private void voucherNumberTextFeildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voucherNumberTextFeildActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_voucherNumberTextFeildActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,5 +250,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton printOutButton;
     private javax.swing.JLabel serviceLabel;
     private javax.swing.JComboBox<String> treatmentComboBox;
+    private javax.swing.JLabel voucherNumberLabel;
+    private javax.swing.JTextField voucherNumberTextFeild;
     // End of variables declaration//GEN-END:variables
 }

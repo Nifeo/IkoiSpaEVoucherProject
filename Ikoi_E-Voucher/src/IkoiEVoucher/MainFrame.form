@@ -51,15 +51,27 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="firstNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="LastNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="serviceLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="addonLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace pref="37" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="LastNameTextField" pref="355" max="32767" attributes="0"/>
                           <Component id="firstNameTextField" max="32767" attributes="0"/>
-                          <Component id="LastNameTextField" max="32767" attributes="0"/>
-                          <Component id="treatmentComboBox" alignment="0" pref="330" max="32767" attributes="0"/>
-                          <Component id="addonComboBox" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="addonLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="addonComboBox" min="-2" pref="355" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="serviceLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="voucherNumberLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="13" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="voucherNumberTextFeild" max="32767" attributes="0"/>
+                          <Component id="treatmentComboBox" pref="355" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -82,6 +94,11 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="voucherNumberLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="voucherNumberTextFeild" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="serviceLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="treatmentComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -90,7 +107,7 @@
                   <Component id="addonLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="addonComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="printOutButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -152,6 +169,16 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="voucherNumberLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="voucher number:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="voucherNumberTextFeild">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="voucherNumberTextFeildActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
