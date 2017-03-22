@@ -43,25 +43,16 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="printOutButton" min="-2" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="firstNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="LastNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="37" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="LastNameTextField" pref="355" max="32767" attributes="0"/>
                           <Component id="firstNameTextField" max="32767" attributes="0"/>
                       </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="addonLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="addonComboBox" min="-2" pref="355" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -73,6 +64,24 @@
                           <Component id="voucherNumberTextFeild" max="32767" attributes="0"/>
                           <Component id="treatmentComboBox" pref="355" max="32767" attributes="0"/>
                       </Group>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="addonLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="AmountLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="addonComboBox" min="-2" pref="355" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="amountTextFeild" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="printOutButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -107,6 +116,11 @@
                   <Component id="addonLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="addonComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="AmountLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="amountTextFeild" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="printOutButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
@@ -135,12 +149,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="serviceLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="service:"/>
+        <Property name="text" type="java.lang.String" value="Service:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="addonLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="addon:"/>
+        <Property name="text" type="java.lang.String" value="Addon:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="firstNameTextField">
@@ -172,12 +186,22 @@
     </Component>
     <Component class="javax.swing.JLabel" name="voucherNumberLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="voucher number:"/>
+        <Property name="text" type="java.lang.String" value="Voucher number:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="voucherNumberTextFeild">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="voucherNumberTextFeildActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="AmountLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Number of treatment:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="amountTextFeild">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="amountTextFeildActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

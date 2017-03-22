@@ -55,6 +55,8 @@ public class MainFrame extends javax.swing.JFrame {
         addonComboBox = new javax.swing.JComboBox<>();
         voucherNumberLabel = new javax.swing.JLabel();
         voucherNumberTextFeild = new javax.swing.JTextField();
+        AmountLabel = new javax.swing.JLabel();
+        amountTextFeild = new javax.swing.JTextField();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -73,9 +75,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         LastNameLabel.setText("Last name:");
 
-        serviceLabel.setText("service:");
+        serviceLabel.setText("Service:");
 
-        addonLabel.setText("addon:");
+        addonLabel.setText("Addon:");
 
         LastNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,11 +89,19 @@ public class MainFrame extends javax.swing.JFrame {
 
         addonComboBox.setModel(dcbm2);
 
-        voucherNumberLabel.setText("voucher number:");
+        voucherNumberLabel.setText("Voucher number:");
 
         voucherNumberTextFeild.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 voucherNumberTextFeildActionPerformed(evt);
+            }
+        });
+
+        AmountLabel.setText("Number of treatment:");
+
+        amountTextFeild.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                amountTextFeildActionPerformed(evt);
             }
         });
 
@@ -102,21 +112,14 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(printOutButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(firstNameLabel)
                             .addComponent(LastNameLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(LastNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
                             .addComponent(firstNameTextField)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(addonLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(addonComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(serviceLabel)
@@ -124,7 +127,20 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(voucherNumberTextFeild)
-                            .addComponent(treatmentComboBox, 0, 355, Short.MAX_VALUE))))
+                            .addComponent(treatmentComboBox, 0, 355, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addonLabel)
+                            .addComponent(AmountLabel))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(addonComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(amountTextFeild)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(printOutButton)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -150,6 +166,10 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addonLabel)
                     .addComponent(addonComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(AmountLabel)
+                    .addComponent(amountTextFeild, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(printOutButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -171,7 +191,8 @@ public class MainFrame extends javax.swing.JFrame {
             String addonName;
             pi.fillFormField("Title", treatmentComboBox.getSelectedItem().toString());
             pi.fillFormField("Recipient", firstNameTextField.getText() + " " + LastNameTextField.getText());
-            pi.fillFormField("VoucherNumber","Voucher Number: " + voucherNumberTextFeild.getText());
+            pi.fillFormField("VoucherNumber","Voucher No: " +  voucherNumberTextFeild.getText());
+            pi.fillFormField("Amount", "Amount: " + amountTextFeild.getText());
             String treatmentDetail = mp.getC1().getContent(treatmentComboBox.getSelectedItem().toString());
             String addonDetail = mp.getC2().getContent(addonComboBox.getSelectedItem().toString());
             if (addonComboBox.getSelectedItem().toString().contains("None")) {
@@ -196,6 +217,10 @@ public class MainFrame extends javax.swing.JFrame {
     private void voucherNumberTextFeildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voucherNumberTextFeildActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_voucherNumberTextFeildActionPerformed
+
+    private void amountTextFeildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amountTextFeildActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_amountTextFeildActionPerformed
 
     /**
      * @param args the command line arguments
@@ -239,10 +264,12 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AmountLabel;
     private javax.swing.JLabel LastNameLabel;
     private javax.swing.JTextField LastNameTextField;
     private javax.swing.JComboBox<String> addonComboBox;
     private javax.swing.JLabel addonLabel;
+    private javax.swing.JTextField amountTextFeild;
     private javax.swing.JLabel firstNameLabel;
     private javax.swing.JTextField firstNameTextField;
     private javax.swing.JScrollPane jScrollPane1;
