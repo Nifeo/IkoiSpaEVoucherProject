@@ -29,9 +29,9 @@ public class PdfItext {
     PdfDocument pdfDoc;
     String fileName;
     
-    public PdfItext(String str) throws IOException{
+    public PdfItext(String dest) throws IOException{
         this.src = Main.class.getResourceAsStream("/src/E_Voucher.pdf");
-        this.dest = new FileOutputStream(new File(System.getProperty("user.dir")+"\\"+str));
+        this.dest = new FileOutputStream(new File(System.getProperty("user.dir")+"\\"+ dest));
         this.pdfDoc = new PdfDocument(new PdfReader(this.src), new PdfWriter(this.dest));
     }
 
