@@ -17,7 +17,6 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.kernel.pdf.extgstate.PdfExtGState;
 import com.itextpdf.layout.Document;
-import com.itextpdf.pdfa.PdfADocument;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
