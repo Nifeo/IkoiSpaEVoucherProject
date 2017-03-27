@@ -21,8 +21,8 @@ class MainPackage {
         this.serviceDescription = new ArrayList();
         this.addonTitle = new ArrayList();
         this.addonDescription = new ArrayList();
-        addService("/src/serviceManu.csv", this.serviceTitle, this.serviceDescription);
-        addService("/src/addon.csv", this.addonTitle, this.addonDescription);
+        addService(System.getProperty("user.dir") + "\\"+"file\\serviceManu.csv", this.serviceTitle, this.serviceDescription);
+        addService(System.getProperty("user.dir")+"\\"+"file\\addon.csv", this.addonTitle, this.addonDescription);
         this.c1 = new Content(toStringArray(this.serviceTitle), toStringArray(this.serviceDescription));
         this.c2 = new Content(toStringArray(this.addonTitle), toStringArray(this.addonDescription));
     }

@@ -187,12 +187,12 @@ public class MainFrame extends javax.swing.JFrame {
         try {
             Calendar c = Calendar.getInstance();
             String fileName = new SimpleDateFormat("dd_MM_yyyy").format(c.getTime()) + "_" + firstNameTextField.getText() + "_" + LastNameTextField.getText() +  "_"  + voucherNumberTextFeild.getText();
-            PdfItext pi = new PdfItext(fileName + ".pdf");
+            PdfItext pi = new PdfItext("/file/E_Voucher.pdf", fileName + ".pdf");
             String addonName;
             pi.fillFormField("Title", treatmentComboBox.getSelectedItem().toString());
             pi.fillFormField("Recipient", firstNameTextField.getText() + " " + LastNameTextField.getText());
-            pi.fillFormField("VoucherNumber","Voucher No: " +  voucherNumberTextFeild.getText());
-            pi.fillFormField("Amount", "Amount: " + amountTextFeild.getText());
+            pi.fillFormField("VoucherNumber","Voucher Number: " +  voucherNumberTextFeild.getText());
+            pi.fillFormField("Amount", "Number of treatment: " + amountTextFeild.getText());
             String treatmentDetail = mp.getC1().getContent(treatmentComboBox.getSelectedItem().toString());
             String addonDetail = mp.getC2().getContent(addonComboBox.getSelectedItem().toString());
             if (addonComboBox.getSelectedItem().toString().contains("None")) {
@@ -204,11 +204,14 @@ public class MainFrame extends javax.swing.JFrame {
                 pi.fillFormField("AddonName", addonName);
                 pi.fillFormField("TreatmentDetail", treatmentDetail + "\n" + addonComboBox.getSelectedItem().toString() + "\n" + addonDetail);
             }
-            c.add(Calendar.MONTH, +6);
+            c.add(Calendar.MONTH, +12);
             pi.fillFormField("Vaild up to and including", new SimpleDateFormat("dd/MM/yyyy").format(c.getTime()));
-            pi.close();
+            pi.close();            
+            PdfBox pb = new PdfBox(fileName);
+            PdfItext pi1 = new PdfItext();
+            pi1.imageToPDF(System.getProperty("user.dir") + "\\" + fileName + " forClient " + ".pdf",System.getProperty("user.dir") + "\\" + fileName + ".png");
             Desktop ds = Desktop.getDesktop();
-            ds.open(new File(System.getProperty("user.dir") + "\\" + fileName + ".pdf"));
+            ds.open(new File(System.getProperty("user.dir") + "\\" + fileName + " forClient " + ".pdf"));
         } catch (IOException ex) {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }

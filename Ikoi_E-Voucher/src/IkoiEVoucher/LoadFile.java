@@ -1,6 +1,8 @@
 package IkoiEVoucher;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -24,7 +26,7 @@ public class LoadFile {
     }
 
     public ArrayList<String> getResource(String path) throws IOException {
-        InputStream is = this.getClass().getResourceAsStream(path);
+        InputStream is = new FileInputStream(new File(path));
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         String s = br.readLine();
         ArrayList<String> al = new ArrayList<String>();
